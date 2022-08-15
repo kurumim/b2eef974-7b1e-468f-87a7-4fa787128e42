@@ -6,30 +6,31 @@ package banking;
  * {@link #bank}: Bank<br>
  */
 public class Transaction {
-    private Long accountNumber;
     private Bank bank;
 
-    /**
-     * @param bank          The bank where the account is housed.
-     * @param accountNumber The customer's account number.
-     * @param attemptedPin  The PIN entered by the customer.
-     * @throws Exception Account validation failed.
-     */
-    public Transaction(Bank bank, Long accountNumber, int attemptedPin) throws Exception {
-        // complete the function
+    private Long accountNumber;
+
+    int attemptedPin;
+
+    public Transaction(final Bank bank, final Long accountNumber, final int attemptedPin) throws Exception {
+        if(!bank.authenticateUser(accountNumber,attemptedPin))
+            throw new Exception();
+        this.bank = bank;
+        this.accountNumber = accountNumber;
+        this.attemptedPin = attemptedPin;
     }
 
+
+
     public double getBalance() {
-        // complete the function
-        return -1;
+        return bank.getBalance(this.accountNumber);
     }
 
     public void credit(double amount) {
-        // complete the function
+        bank.credit(accountNumber,amount);
     }
 
     public boolean debit(double amount) {
-        // complete the function
-        return true;
+        return bank.debit(accountNumber,amount);
     }
 }

@@ -8,11 +8,20 @@ import java.util.List;
  * Private Variables:<br>
  * {@link #authorizedUsers}: List&lt;Person&gt;<br>
  */
-public class CommercialAccount {
+public class CommercialAccount extends Account {
     private List<Person> authorizedUsers;
 
-    public CommercialAccount(Company company, Long accountNumber, int pin, double startingDeposit) {
-        // complete the function
+    Company company;
+    Long accountNumber;
+    int pin;
+    double startingDeposit;
+
+    public CommercialAccount(final Company company, final Long accountNumber, final int pin, final double startingDeposit) {
+        super(null,accountNumber,pin,startingDeposit);
+        this.company = company;
+        this.accountNumber = accountNumber;
+        this.pin = pin;
+        this.startingDeposit = startingDeposit;
     }
 
     /**

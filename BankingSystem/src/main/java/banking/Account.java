@@ -16,36 +16,38 @@ public abstract class Account {
     private int pin;
     private double balance;
 
-    protected Account(AccountHolder accountHolder, Long accountNumber, int pin, double startingDeposit) {
-        // complete the constructor
+    public Account(final AccountHolder accountHolder, final Long accountNumber, final int pin, final double balance) {
+        this.accountHolder = accountHolder;
+        this.accountNumber = accountNumber;
+        this.pin = pin;
+        this.balance = balance;
     }
 
     public AccountHolder getAccountHolder() {
-        // complete the function
-        return null;
+        return accountHolder;
     }
 
     public boolean validatePin(int attemptedPin) {
-        // complete the function
-        return true;
+        return this.pin == attemptedPin;
     }
 
     public double getBalance() {
-        // complete the function
-        return -1;
+       return balance;
     }
 
     public Long getAccountNumber() {
-        // complete the function
-        return -1L;
+        return accountNumber;
     }
 
-    public void creditAccount(double amount) {
-        // complete the function
+    public  void creditAccount(double amount) {
+        this.balance += amount;
     }
 
-    public boolean debitAccount(double amount) {
-        // complete the function
-        return true;
+    public synchronized boolean debitAccount(double amount) {
+        if(balance >= amount){
+            balance -= amount;
+            return true;
+        }
+        return false;
     }
 }
