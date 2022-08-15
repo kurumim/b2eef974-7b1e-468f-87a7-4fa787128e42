@@ -10,8 +10,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Bank implements BankInterface {
 
-    private AtomicInteger numberAccount = new AtomicInteger();
-    private LinkedHashMap<Long, Account> accounts;
+    private  int numberAccount = 1;
+    private final LinkedHashMap<Long, Account> accounts;
 
     public Bank() {
         this.accounts = new LinkedHashMap<>();
@@ -22,16 +22,16 @@ public class Bank implements BankInterface {
     }
 
     public Long openCommercialAccount(Company company, int pin, double startingDeposit) {
-        long accountNumber = numberAccount.get();
-        numberAccount.set(numberAccount.get() + 1);
+        long accountNumber = numberAccount;
+        numberAccount += 1;
         CommercialAccount commercialAccount = new CommercialAccount(company,accountNumber,pin,startingDeposit);
         accounts.put(accountNumber,commercialAccount);
         return accountNumber;
     }
 
-    public Long openConsumerAccount(Person person, int pin, double startingDeposit) {
-        long accountNumber = numberAccount.get();
-        numberAccount.set(numberAccount.get() + 1);
+    public synchronized Long openConsumerAccount(Person person, int pin, double startingDeposit) {
+        long accountNumber = numberAccount;
+        numberAccount += 1;
         ConsumerAccount consumerAccount = new ConsumerAccount(person,accountNumber,pin,startingDeposit);
         accounts.put(accountNumber,consumerAccount);
         return accountNumber;
